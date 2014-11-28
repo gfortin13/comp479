@@ -16,10 +16,10 @@ public class DeptSentiment {
 		//TODO: WRITE THE CODE FOR THIS PSEUDOCODE
 		/*
 		 * foreach(line of "docInfo/docIds.sgm){ <-- use bufferedReader
-		 * 		String[] s = split(line, ":");
+		 * 		String[] s = split(line, ":"); **line looks like: docId:URL:sentiment so they split in 0:docId, 1:URL, 2:Sentiment
 		 * 		foreach(key from deptSentiments){
 		 * 			if s[1].contains(key){
-		 * 				deptSentiment.replace(key, deptSentiment.get(key)+s[2].toInt)
+		 * 				deptSentiment.replace(key, deptSentiment.get(key)+s[2].toInt) 
 		 * 			}
 		 * 		}
 		 * }
