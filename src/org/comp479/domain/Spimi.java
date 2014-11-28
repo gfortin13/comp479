@@ -51,7 +51,9 @@ public class Spimi {
     	    doc.setTokens(Tokenizer.tokenizeDoc(doc.getContent()));
     	    //normalize tokens of each doc
     	    doc.setTokens(Normalizer.normalize(doc));
+    	    //calculateSentiment(tokens)
     	    
+    	    doc.setTokens(Normalizer.stemDoc(doc));
     	    totalTokens += doc.getTokens().size();
     	    
     	    //generate inverted index for each term

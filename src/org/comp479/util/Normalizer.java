@@ -71,9 +71,23 @@ public class Normalizer {
     		   tokens.remove(tokens.get(i));
     		   i--;
     	   }
-    	   else{
+    	   /*else{
     		   tokens.set(i, stem(tokens.get(i)));
-    	   }
+    	   }*/
+    	}
+
+		return tokens;
+	}
+	
+	//stemmer sepearate of normalizing to incorporate sentiment value
+	public static List<String> stemDoc(Document doc){
+		List<String> tokens = doc.getTokens();
+		
+		//stemmer cannot be initialize in class block, initialize once instead of loading a stemmer for each token
+		initializeStemmer();
+		
+		for (Integer i = 0; i < tokens.size(); i++) {
+    		tokens.set(i, stem(tokens.get(i)));
     	}
 
 		return tokens;
