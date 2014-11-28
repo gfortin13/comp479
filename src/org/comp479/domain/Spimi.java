@@ -1,10 +1,10 @@
 package org.comp479.domain;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.comp479.model.CollectionInfo;
@@ -12,6 +12,7 @@ import org.comp479.model.Document;
 import org.comp479.model.Index;
 import org.comp479.util.DictBlockWriter;
 import org.comp479.util.Normalizer;
+import org.comp479.util.SentimentManager;
 import org.comp479.util.Tokenizer;
 
 public class Spimi {
@@ -25,6 +26,8 @@ public class Spimi {
 		lengthFile.getParentFile().mkdirs();
 		FileOutputStream fos = new FileOutputStream(lengthFile);
         OutputStreamWriter lengthFileWriter = new OutputStreamWriter(fos);
+        
+        
     	
     	//first empty index
     	Index index = new Index();
@@ -44,6 +47,8 @@ public class Spimi {
     	CollectionInfo colInfo = new CollectionInfo(documents.size(), 0);
     	Integer totalTokens = 0;
 	  	
+    	HashMap <Integer, Double> docSentimentMap = new HashMap<Integer, Double>();
+    	
     	//SPIMI algorithm
     	for (Document doc : documents) {
     		//doc.writeContent();
@@ -52,6 +57,9 @@ public class Spimi {
     	    //normalize tokens of each doc
     	    doc.setTokens(Normalizer.normalize(doc));
     	    //calculateSentiment(tokens)
+    	    
+    	    SentimentManager sentimentor = new SentimentManager();    	    
+    	    docSentimentMap.put(doc.getId(), sentimentor.getSentimentScore(doc.getTokens()));
     	    
     	    doc.setTokens(Normalizer.stemDoc(doc));
     	    totalTokens += doc.getTokens().size();
@@ -72,6 +80,8 @@ public class Spimi {
     	    lengthFileWriter.write(doc.getId().toString() + ":" + Integer.toString(doc.getTokens().size()) + "\n");
     	}
     	lengthFileWriter.close();
+    	
+    	SentimentManager.writeSentimentScores(docSentimentMap);
     	
     	colInfo.setAvgDocLength(totalTokens/colInfo.getDocCount());
     	colInfo.writeInfo();
