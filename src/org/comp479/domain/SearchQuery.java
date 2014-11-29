@@ -121,11 +121,28 @@ public class SearchQuery {
         
         System.out.println("Displaying top " + topDisplayed + " documents:");
         Iterator<Integer> it = scoreKeys.iterator();
+
+        File file = new File("docInfo/docIds.sgm");
+        
         for(int i = 0; i < topDisplayed; i++){
         	Integer currentDocId = it.next();
+        	
+        	BufferedReader urlReader = new BufferedReader(new FileReader(file));
+    		String line;
+    		
+    		String url = "";
+    		String[] segment;
+    		while((line = urlReader.readLine()) != null){
+    			segment = line.split(":");
+    			if (Integer.parseInt(segment[0]) == currentDocId){
+    				url = segment[1];
+    			}
+    		}
+    		
+        	
         	//File docBodyFile = new File("doc-bodies/doc"+currentDocId+".sgm");
         	//String docBody = File2String.read(docBodyFile);
-        	System.out.println("Doc id " + currentDocId + " body:\n");// + docBody);
+        	System.out.println("Doc id " + currentDocId + " body:\n" + url);// + docBody);
         }
         
         /*for(Integer key: scoreKeys){

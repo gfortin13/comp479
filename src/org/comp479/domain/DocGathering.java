@@ -23,7 +23,7 @@ public class DocGathering {
 		file.getParentFile().mkdirs();
 		Writer writer;
 		
-		List<Document> docs = new ArrayList<Document>();;
+		List<Document> docs = new ArrayList<Document>();
 		
 		listFilesForFolder(new File("collection"), docs);
 		
