@@ -142,7 +142,13 @@ public class SearchQuery {
         	
         	//File docBodyFile = new File("doc-bodies/doc"+currentDocId+".sgm");
         	//String docBody = File2String.read(docBodyFile);
-        	System.out.println("Doc id " + currentDocId + " body:\n" + url);// + docBody);
+    		if(url.contains("concordia")){
+    			url = "http://www.concordia.ca/encs/" + url.replace("concordia\\", "").replace("\\", "/");
+    		}
+    		else{
+    			url = "http://www.cs.mcgill.ca/" + url.replace("mgcill\\comp-sci\\", "").replace("\\", "/");
+    		}
+        	System.out.println("Doc id " + currentDocId + " Link:\n" + url);// + docBody);
         }
         
         /*for(Integer key: scoreKeys){
